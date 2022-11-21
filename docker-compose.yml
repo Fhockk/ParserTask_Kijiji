@@ -1,0 +1,70 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    command: bash -c "uvicorn api.main:app --host 0.0.0.0 --port 80"
+    volumes:
+      - .:/usr/src/scrap
+    ports:
+      - 80:80
+    depends_on:
+      - db
+
+  spider-pages:
+    build: .
+    command: python app/parse_pages.py
+    volumes: 
+      - .:/user/src/scrap
+    depends_on:
+      - db
+      - rabbitmq
+
+  spider-links:
+    build: .
+    command: python app/receive.py
+    volumes: 
+      - .:/user/src/scrap
+    depends_on:
+      - db
+      - rabbitmq
+      - spider-pages
+
+  spider-tobd:
+    build: .
+    command: python app/receive_bd.py
+    volumes: 
+      - .:/user/src/scrap
+    depends_on:
+      - db
+      - rabbitmq
+      - spider-links
+
+  rabbitmq:
+    image: 'rabbitmq:3.10-management-alpine'
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    depends_on:
+      - db
+    networks:
+      - network
+        
+
+  db:
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=testdata
+    expose:
+      - 5432
+
+networks:
+  network: {}
+
+volumes:
+  postgres_data:
+    
