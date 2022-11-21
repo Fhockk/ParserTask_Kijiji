@@ -5,7 +5,7 @@
 ## Technical Requirements
 - Code must be asynchronous and stable: aiohttp, asyncio
 - There shouldn't be duplicated records
-- App must scrape info as quickly as possible
+- App must scrape info as quickly as possible: rabbitmq
 
 ## First:
 ```shell
