@@ -9,7 +9,7 @@
 
 ## First:
 ```shell
-git clone https://github.com/Fhockk/ParserTask.git
+git clone https://github.com/Fhockk/ParserTask_Kijiji.git
 ```
 
 ## How to run this with Docker?
