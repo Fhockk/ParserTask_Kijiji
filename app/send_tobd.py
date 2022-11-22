@@ -1,7 +1,7 @@
 import pika
 import json
 
-conn_params = pika.ConnectionParameters('localhost', 5672)
+conn_params = pika.ConnectionParameters('rabbitmq', 5672)
 connection = pika.BlockingConnection(conn_params)
 channel = connection.channel()
 

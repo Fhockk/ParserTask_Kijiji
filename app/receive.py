@@ -4,7 +4,7 @@ import json
 from parse_link import ParseLinks
 from send_tobd import publish
 
-conn_params = pika.ConnectionParameters(host='localhost', port=5672)
+conn_params = pika.ConnectionParameters(host='rabbitmq', port=5672)
 # conn_params = pika.ConnectionParameters(host='localhost', port=5672, heartbeat=5)
 connection = pika.BlockingConnection(conn_params)
 channel = connection.channel()

@@ -1,4 +1,6 @@
 version: '3.7'
+networks:
+  robin_mallein_net:
 
 services:
   web:
@@ -8,6 +10,8 @@ services:
       - .:/usr/src/scrap
     ports:
       - 80:80
+    networks:
+      robin_mallein_net:
     depends_on:
       - db
 
@@ -16,6 +20,9 @@ services:
     command: python app/parse_pages.py
     volumes: 
       - .:/user/src/scrap
+    restart: always
+    networks:
+      robin_mallein_net:
     depends_on:
       - db
       - rabbitmq
@@ -25,6 +32,9 @@ services:
     command: python app/receive.py
     volumes: 
       - .:/user/src/scrap
+    restart: always
+    networks:
+      robin_mallein_net:
     depends_on:
       - db
       - rabbitmq
@@ -35,6 +45,9 @@ services:
     command: python app/receive_bd.py
     volumes: 
       - .:/user/src/scrap
+    restart: always
+    networks:
+      robin_mallein_net:
     depends_on:
       - db
       - rabbitmq
@@ -48,7 +61,7 @@ services:
     depends_on:
       - db
     networks:
-      - network
+      robin_mallein_net:
         
 
   db:
@@ -61,9 +74,9 @@ services:
       - POSTGRES_DB=testdata
     expose:
       - 5432
-
-networks:
-  network: {}
+    restart: always
+    networks:
+      robin_mallein_net:
 
 volumes:
   postgres_data:

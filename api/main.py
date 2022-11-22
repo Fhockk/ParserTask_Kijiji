@@ -4,7 +4,7 @@ import psycopg2
 engine = psycopg2.connect(database='testdata',
                           user='postgres',
                           password='postgres',
-                          host='localhost',
+                          host='db',
                           port='5432'
                           )
 

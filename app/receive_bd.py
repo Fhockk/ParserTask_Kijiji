@@ -7,7 +7,7 @@ from psycopg2.errors import UniqueViolation
 
 from db_config import create_database, create_tables, create_conn
 
-conn_params = pika.ConnectionParameters(host='localhost', port=5672)
+conn_params = pika.ConnectionParameters(host='rabbitmq', port=5672)
 # conn_params = pika.ConnectionParameters(host='localhost', port=5672, heartbeat=5)
 connection = pika.BlockingConnection(conn_params)
 channel = connection.channel()

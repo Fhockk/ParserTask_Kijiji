@@ -1,4 +1,4 @@
-from parse_pages import unq_links
+# from parse_pages import unq_links
 from bs4 import BeautifulSoup
 import asyncio
 import aiohttp
